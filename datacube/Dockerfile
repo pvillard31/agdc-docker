@@ -72,7 +72,7 @@ RUN mkdir /root/scipy; \
 ### Python dependencies
 ############
 
-RUN yum -y install python-pip; \
+RUN yum -y update && yum -y upgrade && yum -y install python-pip; \
     pip install --upgrade pip; \
     source /root/.bashrc; \
     pip install psycopg2; \
