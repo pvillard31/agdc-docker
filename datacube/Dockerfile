@@ -27,7 +27,7 @@ RUN mkdir /root/gdal; \
 ### PostgreSQL and PostGIS
 ############
 
-RUN rpm -iUvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm; \
+RUN yum -y install http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm; \
     yum -y install http://yum.postgresql.org/9.4/redhat/rhel-7-x86_64/pgdg-centos94-9.4-1.noarch.rpm; \
     yum -y update && yum -y upgrade; \
     yum -y install \
@@ -72,7 +72,8 @@ RUN mkdir /root/scipy; \
 ### Python dependencies
 ############
 
-RUN yum -y update && yum -y upgrade && yum -y install python-pip; \
+RUN yum -y install http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm; \
+    yum -y install python-pip; \
     pip install --upgrade pip; \
     source /root/.bashrc; \
     pip install psycopg2; \
