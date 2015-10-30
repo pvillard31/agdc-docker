@@ -1,0 +1,5 @@
+create group cube_admin_group;
+create group cube_user_group;
+create user cube_admin with password 'POSTGRES_PASSWORD' in group cube_admin_group;
+create user cube_user with password 'POSTGRES_PASSWORD' in group cube_user_group;
+create database datacube encoding 'UTF-8' owner cube_admin;

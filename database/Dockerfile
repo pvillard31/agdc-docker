@@ -13,16 +13,16 @@ RUN mkdir /root/datacube; \
     cd /root/datacube/agdc; \
     git checkout develop
 
-RUN mkdir /root/flyway; \
-    cd /root/flyway; \
-    wget https://bintray.com/artifact/download/business/maven/flyway-commandline-3.2.1-linux-x64.tar.gz; \
-    tar -xvzf flyway-commandline-3.2.1-linux-x64.tar.gz; \
-    rm -rf flyway-commandline-3.2.1-linux-x64.tar.gz; \
-    cp /root/datacube/agdc/database/flyway-example.properties /root/flyway/flyway-3.2.1/conf/flyway.conf; \
-    sed -i 's/flyway.password.*/flyway.password='$POSTGRES_PASSWORD'/g' /root/flyway/flyway-3.2.1/conf/flyway.conf; \
-    sed -i 's/flyway.locations.*/flyway.locations=filesystem:\/root\/datacube\/agdc\/database\/sql/g' /root/flyway/flyway-3.2.1/conf/flyway.conf
+#RUN mkdir /root/flyway; \
+#    cd /root/flyway; \
+#    wget https://bintray.com/artifact/download/business/maven/flyway-commandline-3.2.1-linux-x64.tar.gz; \
+#    tar -xvzf flyway-commandline-3.2.1-linux-x64.tar.gz; \
+#    rm -rf flyway-commandline-3.2.1-linux-x64.tar.gz; \
+#    cp /root/datacube/agdc/database/flyway-example.properties /root/flyway/flyway-3.2.1/conf/flyway.conf; 
 
 RUN mkdir -p /docker-entrypoint-initdb.d
-COPY ./initdb-agdc.sh /docker-entrypoint-initdb.d/agdc.sh
+COPY ./v0_agdc.sh /docker-entrypoint-initdb.d/v0_agdc.sh
+RUN cp /root/datacube/agdc/database/sql/* /docker-entrypoint-initdb.d/
+COPY ./createUser.txt /tmp/createUser.txt
 
 # END
