@@ -101,6 +101,7 @@ RUN mkdir /root/datacube; \
     git clone https://github.com/pvillard31/agdc.git; \
     cd /root/datacube/agdc; \
     git checkout develop; \
+    ldconfig /usr/local/lib/; \
     python setup.py build && python setup.py install
 
 # END
