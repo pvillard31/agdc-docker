@@ -3,5 +3,5 @@ host: agdcdbserver
 port: 5432
 database: datacube
 username: cube_admin
-password: 123456
+password: POSTGRES_PASSWORD
 schemas: agdc
