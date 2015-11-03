@@ -57,7 +57,8 @@ RUN yum -y install \
       liblas-devel \
       lapack-devel \
       lapack64-devel \
-      lapack lapack64 && \
+      lapack64 \
+      proj-devel.x86_64 && \
     mkdir /root/numpy && \
     cd /root/numpy && \
     wget https://pypi.python.org/packages/source/n/numpy/numpy-1.10.1.tar.gz && \
@@ -109,6 +110,14 @@ RUN mkdir /root/datacube && \
     cd /root/datacube/agdc && \
     git checkout develop && \
     ldconfig /usr/local/lib/ && \
+    python setup.py build && python setup.py install && \
+    cd /root/datacube/agdc/api/ && \
     python setup.py build && python setup.py install
+
+RUN mkdir /root/.datacube && \
+    echo export AGDC_API_CONFIG=/root/.datacube/config >> /root/.bashrc && source /root/.bashrc
+COPY ./config /root/.datacube/
+
+VOLUME /data/agdc
 
 # END

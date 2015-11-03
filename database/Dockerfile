@@ -11,18 +11,19 @@ RUN mkdir /root/datacube; \
     cd /root/datacube; \
     git clone https://github.com/pvillard31/agdc.git; \
     cd /root/datacube/agdc; \
-    git checkout develop
+    git checkout develop 
 
-#RUN mkdir /root/flyway; \
-#    cd /root/flyway; \
-#    wget https://bintray.com/artifact/download/business/maven/flyway-commandline-3.2.1-linux-x64.tar.gz; \
-#    tar -xvzf flyway-commandline-3.2.1-linux-x64.tar.gz; \
-#    rm -rf flyway-commandline-3.2.1-linux-x64.tar.gz; \
-#    cp /root/datacube/agdc/database/flyway-example.properties /root/flyway/flyway-3.2.1/conf/flyway.conf; 
+RUN mkdir /root/flyway; \
+    cd /root/flyway; \
+    wget https://bintray.com/artifact/download/business/maven/flyway-commandline-3.2.1-linux-x64.tar.gz; \
+    tar -xvzf flyway-commandline-3.2.1-linux-x64.tar.gz; \
+    rm -rf flyway-commandline-3.2.1-linux-x64.tar.gz; \
+    cp /root/datacube/agdc/database/flyway-example.properties /root/flyway/flyway-3.2.1/conf/flyway.conf; 
 
 RUN mkdir -p /docker-entrypoint-initdb.d
 COPY ./v0_agdc.sh /docker-entrypoint-initdb.d/v0_agdc.sh
-RUN cp /root/datacube/agdc/database/sql/* /docker-entrypoint-initdb.d/
+#RUN mkdir /tmp/sql && cp /root/datacube/agdc/database/sql/* /tmp/sql
+RUN cp /root/datacube/agdc/database/sql/* /root/flyway/flyway-3.2.1/sql
 COPY ./createUser.txt /tmp/createUser.txt
 
 # END
