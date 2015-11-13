@@ -118,6 +118,7 @@ RUN mkdir /root/.datacube && \
     echo export AGDC_API_CONFIG=/root/.datacube/config >> /root/.bashrc && source /root/.bashrc
 COPY ./config /root/.datacube/
 
+# docker container folder /data/agdc can be linked to a host folder
 VOLUME /data/agdc
 
 # END
