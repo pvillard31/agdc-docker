@@ -88,7 +88,30 @@ RUN source /root/.bashrc && \
     pip install numexpr && \
     pip install pyephem && \
     pip install python-dateutil && \
-    pip install pytz
+    pip install pytz && \
+
+############
+### Jupyter and python
+### dependencies for notebook
+############
+
+RUN yum -y install \
+      freetype-devel \
+      libpng \
+      libpng-devel \
+      libpng-static && \
+    source /root/.bashrc && \
+    pip install jupyter && \
+    pip install matplotlib && \
+    pip install pandas && \
+    mkdir /root/idlfunctions && \
+    cd /root/idlfunctions && \
+    git clone https://github.com/sixy6e/idl-functions.git && \
+    cd /root/idlfunctions/idl-functions && \
+    python setup.py build && \
+    python setup.py install
+COPY ./run_notebook_server.sh /root/run_notebook_server.sh
+
 
 ############
 ### eo-tools
