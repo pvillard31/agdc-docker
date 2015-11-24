@@ -10,4 +10,5 @@ else
 
     # replace the password for the database in the configuration file
     docker exec -it datacubeContainer sed -i 's/POSTGRES_PASSWORD/'$1'/g' /root/.datacube/config
+    docker exec -it datacubeContainer /root/run_notebook_server.sh
 fi

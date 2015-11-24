@@ -88,7 +88,7 @@ RUN source /root/.bashrc && \
     pip install numexpr && \
     pip install pyephem && \
     pip install python-dateutil && \
-    pip install pytz && \
+    pip install pytz
 
 ############
 ### Jupyter and python
@@ -110,6 +110,7 @@ RUN yum -y install \
     cd /root/idlfunctions/idl-functions && \
     python setup.py build && \
     python setup.py install
+
 COPY ./run_notebook_server.sh /root/run_notebook_server.sh
 
 
@@ -127,7 +128,8 @@ RUN mkdir /root/eotools && \
 ### datacube
 ############
 
-RUN mkdir /root/datacube && \
+RUN yum -y install python-lxml && \
+    mkdir /root/datacube && \
     cd /root/datacube && \
     git clone https://github.com/pvillard31/agdc.git && \
     cd /root/datacube/agdc && \
@@ -139,6 +141,7 @@ RUN mkdir /root/datacube && \
 
 RUN mkdir /root/.datacube && \
     echo export AGDC_API_CONFIG=/root/.datacube/config >> /root/.bashrc && source /root/.bashrc
+
 COPY ./config /root/.datacube/
 
 # docker container folder /data/agdc can be linked to a host folder
