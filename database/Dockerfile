@@ -6,7 +6,8 @@ MAINTAINER Pierre Villard <pierre.villard@capgemini.com>
 # install wget and git
 RUN apt-get update && apt-get install -y \
     wget \
-    git
+    git \
+    vim
 
 # retrieve agdc code
 RUN mkdir /root/datacube; \
