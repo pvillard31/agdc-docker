@@ -23,6 +23,19 @@ RUN yum -y install http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-
 
 
 ############
+### NetCDF
+############
+RUN mkdir /root/netcdf && \
+    cd /root/netcdf && \
+    wget ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-4.3.3.1.tar.gz && \
+    tar -xvzf netcdf-4.3.3.1.tar.gz && \
+    cd netcdf-4.3.3.1 && \
+    yum install m4 -y && \
+    ./configure --prefix=/opt/netcdf --disable-netcdf-4 && \
+    make check install
+
+
+############
 ### GDAL
 ############
 
@@ -32,7 +45,7 @@ RUN mkdir /root/gdal && \
     tar -xvzf gdal-2.0.1.tar.gz && \
     rm -rf gdal-2.0.1.tar.gz && \
     cd /root/gdal/gdal-2.0.1 && \
-    ./configure && make && make install 
+    ./configure --with-netcdf=/opt/netcdf && make && make install 
 
 ############
 ### PostgreSQL and PostGIS
@@ -143,6 +156,7 @@ RUN mkdir /root/.datacube && \
     echo export AGDC_API_CONFIG=/root/.datacube/config >> /root/.bashrc && source /root/.bashrc
 
 COPY ./config /root/.datacube/
+COPY ./handleSmosPicture.sh /root/handleSmosPicture.sh
 
 # docker container folder /data/agdc can be linked to a host folder
 VOLUME /data/agdc
