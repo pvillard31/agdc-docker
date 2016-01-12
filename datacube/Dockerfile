@@ -157,6 +157,9 @@ RUN mkdir /root/.datacube && \
 
 COPY ./config /root/.datacube/
 COPY ./handleSmosPicture.sh /root/handleSmosPicture.sh
+COPY ./handleMoisturePercentilePicture.sh /root/handleMoisturePercentilePicture.sh
+COPY ./handleForecastPicture.sh /root/handleForecastPicture.sh
+COPY ./handlePrecipitationPercentilePicture.sh /root/handlePrecipitationPercentilePicture.sh
 
 # docker container folder /data/agdc can be linked to a host folder
 VOLUME /data/agdc
