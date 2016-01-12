@@ -8,8 +8,8 @@ else
 
     java -jar /data/agdc/grib-converter.jar $FILE $FILE".nc"
 
-    gdal_translate -a_ullr -17321655.5434 7332251.36559 17321655.5434 -7332251.36559 NETCDF:\"$FILE\".nc:Precipitable_water $FILE"_precipitable_water.tif.temp"
-    gdalwarp -s_srs EPSG:3975 -t_srs EPSG:4326 $FILE"_precipitable_water.tif.temp" $FILE"_precipitable_water.tif"
+    gdal_translate -a_ullr -17321655.5434 7332251.36559 17321655.5434 -7332251.36559 NETCDF:\"$FILE\".nc:Total_precipitation $FILE"_total_precipitation.tif.temp"
+    gdalwarp -s_srs EPSG:3975 -t_srs EPSG:4326 $FILE"_total_precipitation.tif.temp" $FILE"_total_precipitation.tif"
 
     DEL="${FILE}*.xml"	
     DEL2="${FILE}*.temp"
