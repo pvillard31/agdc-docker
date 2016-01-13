@@ -155,6 +155,23 @@ RUN yum -y install python-lxml && \
 RUN mkdir /root/.datacube && \
     echo export AGDC_API_CONFIG=/root/.datacube/config >> /root/.bashrc && source /root/.bashrc
 
+############
+### basemap
+############
+
+RUN mkdir /root/basemap && \
+	cd /root/basemap && \
+	wget http://pkgs.fedoraproject.org/repo/pkgs/python-basemap-data/basemap-1.0.7.tar.gz/48c0557ced9e2c6e440b28b3caff2de8/basemap-1.0.7.tar.gz && \
+	tar -xvzf basemap-1.0.7.tar.gz && \
+	cd /root/basemap/basemap-1.0.7/geos-3.3.3 && \
+	export GEOS_DIR=/usr/local && \
+	./configure --prefix=$GEOS_DIR && \
+	make; make install && \
+	cd /root/basemap/basemap-1.0.7 && \
+	python setup.py install && \
+	rm -f /root/basemap/basemap-1.0.7.tar.gz
+
+
 COPY ./config /root/.datacube/
 COPY ./handleSmosPicture.sh /root/handleSmosPicture.sh
 COPY ./handleMoisturePercentilePicture.sh /root/handleMoisturePercentilePicture.sh
