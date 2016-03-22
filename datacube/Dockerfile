@@ -175,44 +175,44 @@ RUN mkdir /root/basemap && \
 ### segmentation analysis
 #########
 
-RUN mkdir /root/imageProcessing && \
-	cd /root/imageProcessing && \
-	git clone https://github.com/sixy6e/image-processing.git && \
-	cd /root/imageProcessing/image-processing && \
-	python setup.py build && \
-	python setup.py install && \
-	pip install fiona && \
-	pip install rasterio && \
-	mkdir /root/libspatialindex && \
-	cd  /root/libspatialindex && \
-	wget http://download.osgeo.org/libspatialindex/spatialindex-src-1.7.0.tar.gz && \
-	tar -xvzf spatialindex-src-1.7.0.tar.gz && \
-	cd spatialindex-src-1.7.0/ && \
-	./configure; make; make install && \
-	echo export LD_LIBRARY_PATH=/usr/local/lib/ >> /root/.bashrc && source /root/.bashrc && \
-	pip install Rtree && \
-	pip install shapely
+#RUN mkdir /root/imageProcessing && \
+#	cd /root/imageProcessing && \
+#	git clone https://github.com/sixy6e/image-processing.git && \
+#	cd /root/imageProcessing/image-processing && \
+#	python setup.py build && \
+#	python setup.py install && \
+#	pip install fiona && \
+#	pip install rasterio && \
+#	mkdir /root/libspatialindex && \
+#	cd  /root/libspatialindex && \
+#	wget http://download.osgeo.org/libspatialindex/spatialindex-src-1.7.0.tar.gz && \
+#	tar -xvzf spatialindex-src-1.7.0.tar.gz && \
+#	cd spatialindex-src-1.7.0/ && \
+#	./configure; make; make install && \
+#	echo export LD_LIBRARY_PATH=/usr/local/lib/ >> /root/.bashrc && source /root/.bashrc && \
+#	pip install Rtree && \
+#	pip install shapely
 
 ########
 ### Spark
 ########
 
-RUN mkdir /root/spark && \
-	cd /root/spark && \
-	wget http://d3kbcqa49mib13.cloudfront.net/spark-1.6.0-bin-hadoop2.6.tgz && \
-	tar -xvzf spark-1.6.0-bin-hadoop2.6.tgz && \
-	echo export SPARK_HOME=/root/spark/spark-1.6.0-bin-hadoop2.6 >> /root/.bashrc && \
- 	echo export PATH=\$SPARK_HOME/bin:\$PATH >> /root/.bashrc && \
-     	echo export PYTHONPATH=\$SPARK_HOME/python/\$PYTHONPATH >> /root/.bashrc  && \
-	echo export PYTHONPATH=\$SPARK_HOME/python/lib/py4j-0.8.2.1-src.zip:\$PYTHONPATH >> /root/.bashrc && source /root/.bashrc && \
-	mkdir /root/jdk
+#RUN mkdir /root/spark && \
+#	cd /root/spark && \
+#	wget http://d3kbcqa49mib13.cloudfront.net/spark-1.6.0-bin-hadoop2.6.tgz && \
+#	tar -xvzf spark-1.6.0-bin-hadoop2.6.tgz && \
+#	echo export SPARK_HOME=/root/spark/spark-1.6.0-bin-hadoop2.6 >> /root/.bashrc && \
+#	echo export PATH=\$SPARK_HOME/bin:\$PATH >> /root/.bashrc && \
+#   	echo export PYTHONPATH=\$SPARK_HOME/python/\$PYTHONPATH >> /root/.bashrc  && \
+#	echo export PYTHONPATH=\$SPARK_HOME/python/lib/py4j-0.8.2.1-src.zip:\$PYTHONPATH >> /root/.bashrc && source /root/.bashrc && \
+#	mkdir /root/jdk
 
-COPY ./jdk-7u45-linux-x64.tar.gz /root/jdk/jdk-7u45-linux-x64.tar.gz
-RUN cd /root/jdk && \
-	tar -xvzf jdk-7u45-linux-x64.tar.gz && \
-        echo export JAVA_HOME=/root/jdk/jdk1.7.0_45/ >> /root/.bashrc && \
-	echo export PATH=\$PATH:\$JAVA_HOME/bin/ >> /root/.bashrc && \
-	source /root/.bashrc && pip install py4j && pip install --upgrade pip
+#COPY ./jdk-7u45-linux-x64.tar.gz /root/jdk/jdk-7u45-linux-x64.tar.gz
+#RUN cd /root/jdk && \
+#	tar -xvzf jdk-7u45-linux-x64.tar.gz && \
+#        echo export JAVA_HOME=/root/jdk/jdk1.7.0_45/ >> /root/.bashrc && \
+#	echo export PATH=\$PATH:\$JAVA_HOME/bin/ >> /root/.bashrc && \
+#	source /root/.bashrc && pip install py4j && pip install --upgrade pip
 COPY ./config /root/.datacube/
 COPY ./handleSmosPicture.sh /root/handleSmosPicture.sh
 COPY ./handleMoisturePercentilePicture.sh /root/handleMoisturePercentilePicture.sh
