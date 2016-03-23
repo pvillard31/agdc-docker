@@ -11,4 +11,5 @@ else
 
     # replace the password for the database in the configuration file
     docker exec -it $2 sed -i 's/POSTGRES_PASSWORD/'$1'/g' /root/.datacube/config
+    docker exec -it $2 /root/updateAgdc.sh
 fi
