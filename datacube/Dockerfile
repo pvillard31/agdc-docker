@@ -134,6 +134,7 @@ COPY ./run_notebook_server.sh /root/run_notebook_server.sh
 RUN mkdir /root/eotools && \
     cd /root/eotools && \
     git clone https://github.com/GeoscienceAustralia/eo-tools.git && \
+    git checkout eotools-0.4 &&\
     cd /root/eotools/eo-tools && \
     python setup.py build && python setup.py install
 
